@@ -13,6 +13,8 @@ exports = module.exports = function (hostname, timeout) {
         request(hostname, function (error, response) {
             if (error || response.statusCode != 200) {
                 console.warn('Keepalive request failed with status ' + response.statusCode + ': ' + error);
+            } else {
+                console.log('Successful keepalive request');
             }
         });
     }, timeout);
