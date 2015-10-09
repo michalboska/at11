@@ -6,6 +6,7 @@ var moment = require("moment-timezone");
 var config = require('./config');
 var menuFetcher = require('./menuFetcher');
 var parserUtil = require('./parsers/parserUtil');
+var keepAlive = require('./keepAlive');
 
 console.log("Initializing...");
 var actions = {};
@@ -58,6 +59,8 @@ console.log("Global setup...");
 moment.locale('sk');
 moment.tz.setDefault("Europe/Bratislava");
 console.log("Done");
+
+keepAlive(config.keepaliveHost, config.keepalivePeriod);
 
 console.log("Express setup...");
 var app = express();
