@@ -5,7 +5,7 @@ var moment = require('moment-timezone');
 
 module.exports.parse = function(html, date, callback) {
 
-    var SLASH_SEPARATOR_REGEX = /([^\/]+)\/([^\/]+)/;
+    const SLASH_SEPARATOR_REGEX = /([^\/]+)\/([^\/]+)/;
 
     var $ = cheerio.load(html);
 
