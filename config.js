@@ -5,7 +5,7 @@ module.exports = {
 	keepaliveHost: 'http://at11.herokuapp.com/',
 	keepalivePeriod: 15 * 60 * 1000, //15 mins
 	restaurants: [
-	{ id: 0, name: 'Papaya', url: 'http://papayavn.eu/index.php?page=menuTyzdenne', module: 'papaya' },
+	{ id: 0, name: 'Papaya (denné menu)', url: 'http://papayavn.eu/index.php?page=menuTyzdenne', module: 'papaya' },
 	{ id: 1, name: 'Street 54', url: 'http://www.street54.sk/lunch-time/#menu', module: 'street54' },
 	{ id: 2, name: 'Slovak Pub', url: 'http://www.slovakpub.sk/index.php/denne-menu', module: 'slovakPub' }
 
