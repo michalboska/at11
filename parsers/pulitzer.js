@@ -1,9 +1,8 @@
 var cheerio = require('cheerio');
 var parserUtil = require('./parserUtil');
-var moment = require('moment-timezone');
 
 module.exports.parse = function(html, date, callback) {
-    const DATE_REGEX = /^([a-z]+), ?(\d{1,2})\. ?([^\-]+) ?(\d{4})$/i;
+    const DATE_REGEX = /^([^\s\\]+]?), ?(\d{1,2})\. ?([^\-]+) ?(\d{4})$/i;
     const ALERGENS_REGEX = /^(.+) ?\/([, 0-9]+)\/$/i;
     const PRICE = 4.9; //price for daily menu is constant
     const DAYS_ARRAY = ['PONDELOK', 'UTOROK', 'STREDA', 'ŠTVRTOK', 'PIATOK'];
@@ -19,8 +18,8 @@ module.exports.parse = function(html, date, callback) {
         year = undefined,
         isSoup = false,
         meals = [];
-    var todayDay = moment().format('D'),
-        todayDayOfWeek = DAYS_ARRAY[moment().format('d') - 1];
+    var todayDay = date.format('D'),
+        todayDayOfWeek = DAYS_ARRAY[date.format('d') - 1];
 
     $(rootSelector + ' > div').each(function () {
         var elem = $(this).text().trim();

@@ -1,7 +1,5 @@
 var cheerio = require('cheerio');
 var parserUtil = require('./parserUtil');
-var request = require('request');
-var moment = require('moment-timezone');
 
 module.exports.parse = function(html, date, callback) {
 
@@ -13,7 +11,7 @@ module.exports.parse = function(html, date, callback) {
     var daysElems = $('#menu-dni');
     var curDayElem = daysElems.filter(function () {
         var elemText = $(this).find('p.datum').text();
-        var today = moment().format('D. M. YYYY');
+        var today = date.format('D. M. YYYY');
         return elemText === today;
     })[0];
     if (!curDayElem) {

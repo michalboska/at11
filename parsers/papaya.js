@@ -1,21 +1,19 @@
 var cheerio = require('cheerio');
 var parserUtil = require('./parserUtil');
-var request = require('request');
-var moment = require('moment-timezone');
 var _ = require('lodash');
 
 module.exports.parse = function(html, date, callback) {
     const SOUP_REGEX = /polievka/i;
-    const PRICE_REGEX = /cena ?: ?([0-9,\.]+) ?EUR/i;
+    const PRICE_REGEX = /cena ?:? ?([0-9,\.]+) ?EUR/i;
     const DAYS_ARRAY = ['PONDELOK', 'UTOROK', 'STREDA', 'ŠTVRTOK', 'PIATOK'];
 
     var $ = cheerio.load(html);
 
     //get DIV for current day
-    var daysElems = $('#food-container .frameMenuTyzdenne');
+    var daysElems = $('#food-container').find('.frameMenuTyzdenne');
     var curDayElem = daysElems.filter(function () {
         var elemText = $(this).find('.category').text().trim();
-        var today = DAYS_ARRAY[moment().format('d') - 1];
+        var today = DAYS_ARRAY[date.format('d') - 1];
         return elemText === (today + ' :');
     })[0];
     if (!curDayElem) {

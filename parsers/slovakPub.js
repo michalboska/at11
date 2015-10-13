@@ -1,8 +1,5 @@
 var cheerio = require('cheerio');
 var parserUtil = require('./parserUtil');
-var request = require('request');
-var moment = require('moment-timezone');
-var _ = require('lodash');
 
 module.exports.parse = function(html, date, callback) {
     const DATE_REGEX = /(\d{1,2}) ?\. ?(\d{1,2})\.? ?/i;
@@ -16,8 +13,8 @@ module.exports.parse = function(html, date, callback) {
         month = undefined,
         isFirstLine = false,
         meals = [];
-    var todayDay = moment().format('D'),
-        todayMonth = moment().format('M');
+    var todayDay = date.format('D'),
+        todayMonth = date.format('M');
 
     rootElem.children('p').each(function () {
         var elem = $(this).text().trim();
