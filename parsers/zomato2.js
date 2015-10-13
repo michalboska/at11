@@ -3,7 +3,8 @@ require('./parserUtil');
 
 module.exports.parse = function(html, date, callback) {
 
-    const SOUP_REGEX = /polievka/i;
+    const SOUP_REGEX = /(polievka)|(v.var)/i;
+    const IGNORE_REGEX = /(objednajte)|(obchodn.)|(www\.)|(\.sk)/i;
 
     var $ = cheerio.load(html);
     var dayMenu = [];
@@ -17,6 +18,11 @@ module.exports.parse = function(html, date, callback) {
         if(day === date.format('dddd')){
             $this.children('.tmi-daily').each(function() {
                 var text = $(this).find('.tmi-name').text().trim();
+
+                //if this is some promo text, not an actual food, skip this line
+                if (IGNORE_REGEX.test(text)) {
+                    return true;
+                }
                 var price = parseFloat($(this).find('.tmi-price').text().replace(/,/, '.'));
                 if(isNaN(price)){//price probably directly in text, extract it
                     text = text.replace(/\d[\.,]\d{2}$/, function(match){
@@ -24,12 +30,8 @@ module.exports.parse = function(html, date, callback) {
                         return '';
                     });
                 }
-                if (isNaN(price)) { //if price is still undefined, this is probably not food, only some additional info. Skip it
-                    return false;
-                }
 
                 dayMenu.push({ isSoup: SOUP_REGEX.test(text), text: normalize(text), price: price });
-
             });
             return false;
         }

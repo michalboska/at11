@@ -47,6 +47,8 @@ function loadMenus(container) {
                             li.append("<span>" + item.text + "</span>");
                             if (item.price) {
                                 li.append("<span class='price'>" + item.price + "</span>");
+                            } else {
+                                li.append("<span class='price price-unknown'><i class='fa fa-exclamation-triangle'></i> &euro;</span>");
                             }
                             listElem.append(li);
                         });

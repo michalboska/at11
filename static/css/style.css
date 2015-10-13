@@ -119,6 +119,10 @@ section {
                     padding-left: 0.5em;
                 }
 
+                section ul li > *.price-unknown {
+                    color: rgb(180, 180, 180);
+                }
+
                 section ul li > *:first-child {
                     font-family: FontAwesome;
                     font-weight: normal;
