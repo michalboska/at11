@@ -59,7 +59,7 @@
     "url": "https://github.com/at11/at11.git"
   },
   "bugs": {
-    "url": "https://github.com/at11/at11/issues"
+    "url": "https://github.com/michalboska/at11/issues"
   },
   "engines": {
     "node": "0.12.x"
