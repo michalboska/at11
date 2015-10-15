@@ -5,7 +5,7 @@ var _ = require('lodash');
 module.exports.parse = function(html, date, callback) {
     const SOUP_REGEX = /polievka/i;
     const PRICE_REGEX = /cena ?:? ?([0-9,\.]+) ?EUR/i;
-    const DAYS_ARRAY = ['PONDELOK', 'UTOROK', 'STREDA', 'ŠTVRTOK', 'PIATOK'];
+    const DAYS_ARRAY = ['PONDELOK', 'UTOROK', 'STREDA', 'Å TVRTOK', 'PIATOK'];
 
     var $ = cheerio.load(html);
 
@@ -14,7 +14,7 @@ module.exports.parse = function(html, date, callback) {
     var curDayElem = daysElems.filter(function () {
         var elemText = $(this).find('.category').text().trim();
         var today = DAYS_ARRAY[date.format('d') - 1];
-        return elemText === (today + ' :');
+        return elemText.indexOf(today) > -1;
     })[0];
     if (!curDayElem) {
         return callback(new Error('No such element'));
