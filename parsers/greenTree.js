@@ -11,8 +11,8 @@ module.exports.parse = function(html, date, callback) {
 
     var $ = cheerio.load(html);
 
-    var todaysMenuElem = $('.dnesne_menu');
-    var dateText = todaysMenuElem.find('h2').text();
+    var todaysMenuElem = $('#main');
+    var dateText = todaysMenuElem.find('h2.title').text();
 
     var dateMatch = DATE_REGEX.exec(dateText);
     if (!dateMatch) {
