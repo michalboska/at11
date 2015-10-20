@@ -10,7 +10,9 @@ module.exports = {
 	{ id: 2, name: 'Slovak Pub', url: 'http://www.slovakpub.sk/index.php/denne-menu', module: 'slovakPub' },
 	{ id: 3, name: 'Le Petit cafe', url: 'https://www.zomato.com/sk/bratislava/le-petit-cafe-restaurant-star%C3%A9-mesto-bratislava-i/menu', module: 'zomato' },
 	{ id: 4, name: 'Olive Tree', url: 'https://www.zomato.com/sk/bratislava/olive-tree-star%C3%A9-mesto-bratislava-i/menu', module: 'zomato2' },
-	{ id: 5, name: 'Pulitzer u zlatého jeleňa', url: 'http://www.pulitzeruzlatehojelena.sk/index.php/obedove-menu', module: 'pulitzer' }
+	{ id: 5, name: 'Pulitzer u zlatého jeleňa', url: 'http://www.pulitzeruzlatehojelena.sk/index.php/obedove-menu', module: 'pulitzer' },
+	{ id: 6, name: 'Meštiansky pivovar', url: 'http://www.mestianskypivovar.sk/ponuka-dna-jedlo-dna-restauracia-pivaren-bratislava', module: 'mestiansky' },
+	{ id: 7, name: 'City Vegetarian', url: 'http://restauracie.sme.sk/restauracia/city-vegetarian_625-bratislava_2983/denne-menu', module: 'sme' }
 
 
 	],
