@@ -5,8 +5,7 @@ var _ = require('lodash');
 module.exports.parse = function(html, date, callback) {
 
     const DATE_REGEX = /(\d{1,2})\. ?(\d{1,2})\. ?(\d{4})/i;
-    const ALERGENS_REGEX = /\(?[\d\,\-]+?\)?/ig;
-    const IGNORE_PATTERN = 'obilniny';
+    const PRICE_REGEX = /cena:? ?(.+)/ig;
     const SOUP = 'polievka';
 
     var $ = cheerio.load(html);
@@ -24,17 +23,26 @@ module.exports.parse = function(html, date, callback) {
     }
 
     var meals = [];
-    todaysMenuElem.find('.jedlo_polozka').each(function () {
+    var price;
+    todaysMenuElem.find('.line').each(function () {
         var foodElem = $(this);
-        var foodName = foodElem.find('.left').text();
-        var foodPrice = foodElem.find('.right').text();
-        if (foodName.indexOf(IGNORE_PATTERN) > -1) {
+        var foodType = foodElem.find('.left').text().normalizeWhitespace();
+        var foodName = foodElem.find('.right').text().normalizeWhitespace().removeItemNumbering().trim();
+
+        if (!foodName) {
             return true;
         }
+
+        var priceMatch = PRICE_REGEX.exec(foodName);
+        if (priceMatch) {
+            foodName = foodName.replace(PRICE_REGEX, '').trim();
+            price = parserUtil.parsePrice(priceMatch[1]).price;
+        }
+        var isSoup = foodType.toLowerCase().indexOf(SOUP) > -1;
         meals.push({
-            isSoup: foodName.toLowerCase().indexOf(SOUP) > -1,
-            text: foodName.normalizeWhitespace().replace(ALERGENS_REGEX, ''),
-            price: parserUtil.parsePrice(foodPrice).price
+            isSoup: isSoup,
+            text: foodName.normalizeWhitespace(),
+            price: isSoup ? 0 : price
         });
     });
 
