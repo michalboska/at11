@@ -42,7 +42,7 @@ module.exports.parse = function(html, date, callback) {
         meals.push({
             isSoup: isSoup,
             text: foodName.normalizeWhitespace(),
-            price: isSoup ? 0 : price
+            price: isSoup ? price : 0
         });
     });
 
