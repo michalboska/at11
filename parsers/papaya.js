@@ -3,7 +3,7 @@ var parserUtil = require('./parserUtil');
 var _ = require('lodash');
 
 module.exports.parse = function(html, date, callback) {
-    const SOUP_REGEX = /polievka/i;
+    const SOUP_REGEX = /(polievka)|(v.var)/i;
     const PRICE_REGEX = /cena ?:? ?([0-9,\.]+) ?EUR/i;
     const DAYS_ARRAY = ['PONDELOK', 'UTOROK', 'STREDA', 'ŠTVRTOK', 'PIATOK'];
 
