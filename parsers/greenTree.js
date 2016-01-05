@@ -18,7 +18,7 @@ module.exports.parse = function(html, date, callback) {
         throw new Error('Could not find section for the specified date');
     }
 
-    if ((date.format('DD') != dateMatch[1]) || (date.format('MM') != dateMatch[2]) || (date.format('YYYY') != dateMatch[3])) {
+    if ((parseInt(date.format('DD')) != parseInt(dateMatch[1])) || (parseInt(date.format('MM')) != parseInt(dateMatch[2])) || (parseInt(date.format('YYYY')) != parseInt(dateMatch[3]))) {
         throw new Error('The today\'s section is for different date');
     }
 
