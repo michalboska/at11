@@ -6,7 +6,7 @@ module.exports = {
 	keepalivePeriod: 15 * 60 * 1000, //15 mins
 	restaurants: [
 	{ id: 0, name: 'Papaya', url: 'http://papayavn.eu/index.php?page=menuTyzdenne', module: 'papaya' },
-	{ id: 1, name: 'Street 54', url: 'http://www.street54.sk/lunch-time/#menu', module: 'street54' },
+	{ id: 1, name: 'Street 54', url: 'http://www.street54.sk/#dennemenu', module: 'street54' },
 	{ id: 2, name: 'Slovak Pub', url: 'http://www.slovakpub.sk/index.php/denne-menu', module: 'slovakPub' },
 	{ id: 3, name: 'U zeleného stromu', url: 'http://uzelenehostromu.sk/', module: 'greenTree' },
 	{ id: 4, name: 'Le Petit cafe', url: 'https://www.zomato.com/sk/bratislava/le-petit-cafe-restaurant-star%C3%A9-mesto-bratislava-i/menu', module: 'zomato' },

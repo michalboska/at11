@@ -1,51 +1,49 @@
 var cheerio = require('cheerio');
 var parserUtil = require('./parserUtil');
 
-module.exports.parse = function(html, date, callback) {
+module.exports.parse = function (html, date, callback) {
 
     const SLASH_SEPARATOR_REGEX = /([^\/]+)\/([^\/]+)/;
 
     var $ = cheerio.load(html);
 
     //get DIV for current day
-    var daysElems = $('#menu-dni');
+    var daysElems = $('.ppb_wrapper .one');
     var curDayElem = daysElems.filter(function () {
-        var elemText = $(this).find('p.datum').text();
-        var today = date.format('D. M. YYYY');
-        return elemText === today;
+        var elemText = $(this).find('h5.menu_post span.menu_title').text();
+        var today = date.format('D.M.YYYY');
+        var idx = elemText.indexOf(today);
+        return idx > -1;
     })[0];
     if (!curDayElem) {
         return callback(new Error('No such element'));
     }
 
     var meals = [];
+    var soups = false;
 
-    //load soups
-    $(curDayElem).find('.cela-polievka').each(function () {
-        var soupName = $(this).find('.nazov-polievky').text();
-        var slovakName = SLASH_SEPARATOR_REGEX.exec(soupName)[1].normalizeWhitespace();
-        var volume = $(this).find('.objem-polievky').text();
-        var price = parserUtil.parsePrice($(this).find('.cena-polievky').text());
-
-        meals.push({
-            isSoup: true,
-            text: slovakName + ' (' + volume + ')',
-            price: price.price
-        });
-    });
-
-    //load main meals
-    $(curDayElem).find('.cele-jedlo').each(function () {
-        var mealName = $(this).find('.nazov-jedla').text();
-        var slovakName = SLASH_SEPARATOR_REGEX.exec(mealName)[1].normalizeWhitespace();
-        var volume = $(this).find('.vaha-jedla').text();
-        var price = parserUtil.parsePrice($(this).find('.cena-jedla').text());
-
-        meals.push({
-            isSoup: false,
-            text: slovakName + ' (' + volume + ')',
-            price: price.price
-        });
+    $(curDayElem).find('.menu_content_classic').each(function () {
+        var foodTitle = $(this).find('.menu_title').text().normalizeWhitespace();
+        if (foodTitle.toLowerCase() === 'polievky') {
+            soups = true;
+            return;
+        }
+        if (foodTitle.toLowerCase() === 'hlavné jedlá') {
+            soups = false;
+            return;
+        }
+        var price = $(this).find('.menu_price').text();
+        if (!price) {
+            return;
+        }
+        price = price.replace('€', '');
+        price = price.replace(',', '.');
+        var item = {
+            isSoup: soups,
+            text: foodTitle,
+            price: parseFloat(price)
+        };
+        meals.push(item);
     });
 
     callback(meals);
