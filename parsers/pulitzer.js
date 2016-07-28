@@ -3,7 +3,7 @@ var parserUtil = require('./parserUtil');
 
 module.exports.parse = function(html, date, callback) {
     const DATE_REGEX = /^([^\s\\]+]?), ?(\d{1,2})\. ?([^\-]+) ?(\d{4})$/i;
-    const ALERGENS_REGEX = /^(.+) ?\/([, 0-9]+)\/?$/i;
+    const ALERGENS_REGEX = /^(.+) ?\/([, 0-9]+)[\/|]?.*?$/i;
     const PRICE = 4.9; //price for daily menu is constant
     const DAYS_ARRAY = ['PONDELOK', 'UTOROK', 'STREDA', 'ŠTVRTOK', 'PIATOK'];
     const SOUP = 'polievka';
